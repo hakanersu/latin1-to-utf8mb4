@@ -16,16 +16,14 @@ use Xuma\Fixer\Query;
 
 include "vendor/autoload.php";
 
-$db = new Database('dbadi', 'root', '');
+$db = new Database('veritabani_adi', 'root', '');
 $query = new Query($db);
-// Hangi tablo sutun tiplerinde degisiklik yapilacak.
-$query->types = ['varchar', 'text', 'mediumtext'];
-// Hangi alanlar uzerinde degisiklik yapilmayacak. Ne kadar ayrıntılandırabilirseniz o kadar hızlı olacaktır.
-$query->ignoredFiels = ['uuid','ipaddress','sessionid', 'email'];
-// Degistirilecek karakter setleri. Ne kadar az olursa o kadar hızlı olacaktır.
-$query->setParts(['â€¢' => '•', 'â€œ' => '“', 'â€' => '”', 'â€˜' => '‘', 'â€™' => '’', 'Ý¾' => 'İ', 'Ý' => 'İ', 'Ä°' => 'İ', 'Ã' => 'İ', 'â€¹' => 'İ', '&Yacute;' => 'İ', 'ý' => 'ı', 'Ä±' => 'ı', 'Â±' => 'ı', 'Ã½' => 'ı', 'Ã›' => 'ı', 'â€º' => 'ı', '&yacute;' => 'ı', 'Þ' => 'Ş', 'Åž' => 'Ş', 'Ã…Å¸' => 'Ş', 'Ã¥Ã¿' => 'Ş', '&THORN;' => 'Ş', 'þ' => 'ş', 'Å?' => 'ş', 'ÅŸ' => 'ş', '&thorn;' => 'ş', 'Ð' => 'Ğ', 'Äž' => 'Ğ', 'ð' => 'ğ', 'Ä?' => 'ğ', 'ÄŸ' => 'ğ', '&eth;' => 'ğ', 'Ã‡' => 'Ç', 'Ã?' => 'Ç', '&Ccedil;' => 'Ç', 'Ã§' => 'ç', '&ccedil;' => 'ç', 'Ã–' => 'Ö', '&Ouml;' => 'Ö', 'Ã¶' => 'ö', '&ouml;' => 'ö', 'Ãœ' => 'Ü', '&Uuml;' => 'Ü', 'ÃƒÂ¼' => 'ü', 'Ã£Â¼' => 'ü', 'Ã¼' => 'ü', '&uuml;' => 'ü']);
 
-$query->setDatabaseCharset()
+$query->setTypes(['varchar', 'text', 'mediumtext'])
+    ->setIgnoredFields(['uuid','ipaddress','sessionid', 'email','password'])
+    ->setIgnoredTables(['activity_log'])
+    ->setParts(['â€¢' => '•', 'â€œ' => '“', 'â€' => '”', 'â€˜' => '‘', 'â€™' => '’', 'Ý¾' => 'İ', 'Ý' => 'İ', 'Ä°' => 'İ', 'Ã' => 'İ', 'â€¹' => 'İ', '&Yacute;' => 'İ', 'ý' => 'ı', 'Ä±' => 'ı', 'Â±' => 'ı', 'Ã½' => 'ı', 'Ã›' => 'ı', 'â€º' => 'ı', '&yacute;' => 'ı', 'Þ' => 'Ş', 'Åž' => 'Ş', 'Ã…Å¸' => 'Ş', 'Ã¥Ã¿' => 'Ş', '&THORN;' => 'Ş', 'þ' => 'ş', 'Å?' => 'ş', 'ÅŸ' => 'ş', '&thorn;' => 'ş', 'Ð' => 'Ğ', 'Äž' => 'Ğ', 'ð' => 'ğ', 'Ä?' => 'ğ', 'ÄŸ' => 'ğ', '&eth;' => 'ğ', 'Ã‡' => 'Ç', 'Ã?' => 'Ç', '&Ccedil;' => 'Ç', 'Ã§' => 'ç', '&ccedil;' => 'ç', 'Ã–' => 'Ö', '&Ouml;' => 'Ö', 'Ã¶' => 'ö', '&ouml;' => 'ö', 'Ãœ' => 'Ü', '&Uuml;' => 'Ü', 'ÃƒÂ¼' => 'ü', 'Ã£Â¼' => 'ü', 'Ã¼' => 'ü', '&uuml;' => 'ü'])
+    ->setDatabaseCharset()
     ->setTableCharsets()
     ->updateColumns();
 ```

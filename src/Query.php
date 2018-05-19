@@ -12,7 +12,9 @@ class Query
 
     public $types = [];
 
-    public $ignoredFiels = [];
+    public $ignoredFields = [];
+
+    public $ignoredTables = [];
 
     public function __construct(Database $db)
     {
@@ -42,6 +44,7 @@ class Query
     public function setParts($arr)
     {
         $this->parts = $arr;
+        return  $this;
     }
 
     public function updateColumns()
@@ -79,11 +82,28 @@ class Query
         return $columns;
     }
 
+    public function setTypes($types)
+    {
+        $this->types = $types;
+        return $this;
+    }
+
+    public function setIgnoredFields($fields)
+    {
+        $this->ignoredFields = $fields;
+        return $this;
+    }
+
+    public function setIgnoredTables($tables)
+    {
+        $this->ignoredTables = $tables;
+        return $this;
+    }
     private function updateField($table, $columnName)
     {
         echo "Updating {$table} > $columnName ".PHP_EOL;
         foreach ($this->parts as $wrong => $correct) {
-            if (in_array($columnName, $this->ignoredFiels)) {
+            if (in_array($columnName, $this->ignoredFields)) {
                 continue;
             }
             // Prepared statement tablolarda ise yaramadigindan direkt yazdim ve diger alanlarda prepared statementlar problem cikardi ve
