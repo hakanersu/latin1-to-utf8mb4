@@ -1,0 +1,17 @@
+{
+    "name": "xuma/fixer",
+    "description": "Latin1 to utf8mb4 fixer.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hakan ERSU",
+            "email": "hakanersu@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Xuma\\Fixer\\": "src/"
+        }
+    }
+}
