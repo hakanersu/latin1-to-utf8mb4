@@ -16,6 +16,8 @@ class Query
 
     public $ignoredTables = [];
 
+    public $selectedTables = false;
+
     public function __construct(Database $db)
     {
         $this->db = $db;
@@ -34,7 +36,11 @@ class Query
 
     public function setTableCharsets()
     {
-        foreach ($this->tables as $table) {
+        $tables = $this->tables;
+        if ($this->selectedTables) {
+            $tables = $this->selectedTables;
+        }
+        foreach ($tables as $table) {
             $this->modifySingleTable($table);
         }
 
@@ -49,7 +55,11 @@ class Query
 
     public function updateColumns()
     {
-        foreach ($this->tables as $table) {
+        $tables = $this->tables;
+        if ($this->selectedTables) {
+            $tables = $this->selectedTables;
+        }
+        foreach ($tables as $table) {
             if (in_array($table, $this->ignoredTables)) {
                 continue;
             }
@@ -113,5 +123,11 @@ class Query
             // ugrasmak istemedim ne de olsa public olarak kullanmayacagiz.
             $this->db->execute("UPDATE {$table} SET `{$columnName}` = REPLACE (`{$columnName}`, '{$wrong}', '{$correct}')");
         }
+    }
+
+    public function tables($tables)
+    {
+        $this->selectedTables = $tables;
+        return $this;
     }
 }
