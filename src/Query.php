@@ -50,6 +50,9 @@ class Query
     public function updateColumns()
     {
         foreach ($this->tables as $table) {
+            if (in_array($table, $this->ignoredTables)) {
+                continue;
+            }
             $columns = $this->getColumns($table);
             foreach ($columns as $column) {
                 if (in_array($column['DATA_TYPE'], $this->types)) {
