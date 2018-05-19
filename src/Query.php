@@ -86,6 +86,8 @@ class Query
             if (in_array($columnName, $this->ignoredFiels)) {
                 continue;
             }
+            // Prepared statement tablolarda ise yaramadigindan direkt yazdim ve diger alanlarda prepared statementlar problem cikardi ve
+            // ugrasmak istemedim ne de olsa public olarak kullanmayacagiz.
             $this->db->execute("UPDATE {$table} SET `{$columnName}` = REPLACE (`{$columnName}`, '{$wrong}', '{$correct}')");
         }
     }
